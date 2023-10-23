@@ -1,0 +1,12 @@
+li{
+  display: flex;
+  padding:1vw;
+}
+.image-container{
+  width: 20%;
+}
+li img{
+  max-width:100%;
+  min-width: 200px;
+  margin-right:1vw;
+}

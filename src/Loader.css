@@ -1,0 +1,62 @@
+.loader-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding:10vw;
+}
+.spinner {
+  width: 10vw;
+  height:10vw;
+  position: relative;
+  max-width:100px;
+  max-height:100px;
+  border: 12px solid;
+  border-radius: 50%;
+  animation: grow 4s linear infinite;
+}
+
+@keyframes grow {
+  0%{
+    background-color:blueviolet;
+  }
+  40%{
+    background-color: magenta;
+    width: 20vw;
+    height:20vw;
+    max-width:120px;
+    max-height:120px;
+  }
+  60%{
+    background-color: purple;
+  }
+  80%{
+    background-color: magenta;
+    width: 10vw;
+    height: 10vw;
+    max-width:100px;
+    max-height:100px;
+  }
+  100%{
+    background-color: blueviolet;
+  }
+
+}
+@keyframes spin-anim {
+  0% {
+      transform: rotate(0deg);
+      border-color: green transparent lime transparent;
+
+  }
+  33%{
+    border-color:  transparent green transparent lime;
+
+  }
+  66%{
+    border-color: lime transparent green transparent ;
+  }
+  100% {
+      transform: rotate(360deg);
+      border-color: green transparent lime transparent;
+  }
+  
+}
