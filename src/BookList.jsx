@@ -6,9 +6,14 @@ return(
   <>
     <ul>
     {books.map(book => {
+      let archiveId = null;
+      if(book.archiveId.length){
+        archiveId = book.archiveId[0]
+      }
         return (
           <Book 
-            key={book.isbn} 
+            archiveId={archiveId}
+            key={book.workKey} 
             data={book} 
             selectBook={selectBook}/>
       )

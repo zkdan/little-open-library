@@ -17,8 +17,13 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const search = useCallback((index, query)=>{
-      setLoading(true);
-      setSearchTerm(query);
+    setLoading(true);
+    if(!query){
+      setLoading(false);
+
+      return 
+    }
+    setSearchTerm(query);
       const url = new URL(`https://openlibrary.org/search.json`);
   
       const params = {
@@ -28,28 +33,30 @@ function App() {
       if(englishOnly){
         params.language = 'eng'
       }
-     
+    
       url.search = new URLSearchParams(params);
       fetch(url).then(res=>res.json()).then(res =>{
         const totalPages = Math.ceil(res.numFound / 100);
         setPageMax(totalPages);
-        
-        const b =  res.docs.filter(book => book.author_key && book.isbn && book.cover_i )
+        const b =  res.docs.filter(book => book.author_key && book.isbn)
         .map(book => {
           const imgUrl = book.cover_edition_key ? `https://covers.openlibrary.org/b/olid/${book.cover_edition_key}-M.jpg` : bookImg ;
-          console.log(book.title, book.cover_edition_key, book.cover_i)
               return {
                 title:book.title,
                 authorKey:book.author_key,
                 workKey:book.key,
                 authorNames:book.author_name,
                 isbn:book.isbn[0],
+                archiveId:book.ia || `none`,
                 // imgUrl:`https://covers.openlibrary.org/b/isbn/${book.isbn[0]}-M.jpg`
-                imgUrl: imgUrl
+                imgUrl: imgUrl,
+                pubYear:book.first_publish_year,
+                hasFullText: !!book.has_fulltext
                 
               }
             })
           .reduce((acc, curr) => {
+            // no duplicates by the same author
             if(acc[curr.authorKey[0]]){
               return acc
             } else {
@@ -57,7 +64,7 @@ function App() {
             }
               return acc
           },{})
-          console.log(b)
+          // console.log(b)
           setShowingBooks(Object.values(b));
           setLastSearch(query);
           setLoading(false);
@@ -106,7 +113,7 @@ function App() {
   return (
     <>
       <Routes>
-        <Route path="/book/:isbn" element={<BookDetails 
+        <Route path="/works/:identifier" element={<BookDetails 
         selectBook={selectBook}
         selectedBook={selectedBook}/>}/>
         <Route path="/" element={

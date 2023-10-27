@@ -15,6 +15,7 @@ const BookSearch = ({handleSubmit,search,reset, loading, page, englishOnly, togg
   return (
     <aside>
       <div className="search-container">
+        <span>little open</span>
         <h1>Library</h1>
         <form onSubmit={(e) => handleSubmit(e, searchInput)}>
           <fieldset>
