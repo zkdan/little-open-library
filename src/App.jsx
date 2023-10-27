@@ -38,7 +38,7 @@ function App() {
       fetch(url).then(res=>res.json()).then(res =>{
         const totalPages = Math.ceil(res.numFound / 100);
         setPageMax(totalPages);
-        const b =  res.docs.filter(book => book.author_key && book.isbn)
+        const b =  res.docs.filter(book => book.author_key && book.isbn && book.cover_i)
         .map(book => {
           const imgUrl = book.cover_edition_key ? `https://covers.openlibrary.org/b/olid/${book.cover_edition_key}-M.jpg` : bookImg ;
               return {

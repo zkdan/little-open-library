@@ -20,7 +20,7 @@ return(
       <h3>{book.title}</h3>
       {names.map((el,i) => <p key={`${el}${i}`}>{el}</p>)}
       <h4>{book.pubYear}</h4>
-       {book.hasFullText && <p><span className="icon">🔎</span>Full text available</p>} 
+       {book.hasFullText && <p><span className="icon">🔎 </span>Full text available</p>} 
       <ul>
       </ul>
     </div>

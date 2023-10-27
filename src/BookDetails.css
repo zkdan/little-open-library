@@ -1,0 +1,14 @@
+.subjects-list{
+  display: flex;
+  flex-wrap:wrap;
+}
+
+.subjects-list li {
+  display: inline-block;
+  padding: .3vw 1vw;
+  background-color:rgb(232, 47, 185);
+  margin: .3vw;
+}
+.line-height-container{
+  min-height:calc(2rem + 1vw);
+}

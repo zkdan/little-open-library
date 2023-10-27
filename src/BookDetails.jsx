@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { sanitizeNames, findProp } from "./utils";
 import bookImg from './assets/book_generated.png'
 import Image from "./Image";
+import './BookDetails.css';
 
 const BookDetails = ({selectedBook, selectBook}) => {
   
@@ -16,11 +17,8 @@ const BookDetails = ({selectedBook, selectBook}) => {
   useEffect(()=>{
     setLoading(true);
     const url = new URL(`https://openlibrary.org/${path}.json`);
-    console.log(url)
     fetch(url).then(res=>res.json()).then(res =>{
       getAuthorData(res.authors);
-      console.log(findProp(res, 'description'));
-      console.log(findProp(res, 'subjects'))
       setBook(res);      
       setLoading(false);
     })
@@ -48,10 +46,13 @@ return(
           url={''}
           />
         <h2>{selectedBook.title || book.title}</h2>
-        {authors.map(name => <p key={name}>{name}</p>)}
+        <div className="line-height-container">{authors.map(name => <p key={name}>{name}</p>)}
+        </div>
       </article>
       <section>
-        {/* <p>{book.description.value && book.description.value}</p> */}
+        <p>{findProp(book, 'description')}</p>
+          <ul className="subjects-list">{findProp(book, 'subjects').map((subject,i) => <li key={i}>{subject}</li>)}
+          </ul>
       </section>
      
   </div>

@@ -1,18 +1,19 @@
 .loader-container{
-  display: flex;
-  justify-content: center;
-  align-items: center;
   padding:10vw;
+  position: relative;
+  top: 15vh;
+  text-align: center;
 }
 .spinner {
-  width: 10vw;
-  height:10vw;
   position: relative;
-  max-width:100px;
-  max-height:100px;
+  min-width: 10vw;
+  min-height: 10vw;
   border: 12px solid;
   border-radius: 50%;
-  animation: grow 4s linear infinite;
+  animation: grow 7s linear infinite;
+  margin: 0 auto;
+  transform-origin:50% center;
+  display: inline-block;
 }
 
 @keyframes grow {
@@ -21,20 +22,16 @@
   }
   40%{
     background-color: magenta;
-    width: 20vw;
-    height:20vw;
-    max-width:120px;
-    max-height:120px;
+    border: 40px solid blueviolet;
+
   }
   60%{
     background-color: purple;
   }
   80%{
+    border: 40px solid purple;
     background-color: magenta;
-    width: 10vw;
-    height: 10vw;
-    max-width:100px;
-    max-height:100px;
+   
   }
   100%{
     background-color: blueviolet;

@@ -10,11 +10,17 @@ html {
   -moz-text-size-adjust: none;
   -webkit-text-size-adjust: none;
   text-size-adjust: none;
+  font-size:62.5%;
+}
+
+body{
+  font-size: 2rem;
+  color:whitesmoke;
 }
 
 /* Remove default margin in favour of better control in authored CSS */
 body, h1, h2, h3, h4, p,
-figure, blockquote, dl, dd {
+figure, blockquote, dl, dd, ul, li {
   margin: 0;
 }
 
@@ -79,6 +85,9 @@ textarea:not([rows]) {
   display: flex;
 }
 
+main{
+  flex-grow:1;
+}
 aside{
   background-color: palevioletred;
   min-height:100vh;

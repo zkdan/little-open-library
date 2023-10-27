@@ -18,7 +18,6 @@ const BookSearch = ({handleSubmit,search,reset, loading, page, englishOnly, togg
         <span>little open</span>
         <h1>Library</h1>
         <form onSubmit={(e) => handleSubmit(e, searchInput)}>
-          <fieldset>
             <input type="text" id="search" value={searchInput} onChange={handleSearchChange}/>
             <div className="input-unit">
               <input type="button" 
@@ -55,7 +54,6 @@ const BookSearch = ({handleSubmit,search,reset, loading, page, englishOnly, togg
               disabled ={!searchInput}
               />
             </div>
-          </fieldset>
         </form> 
       </div>
     </aside>
