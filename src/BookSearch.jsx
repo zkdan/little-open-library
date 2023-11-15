@@ -18,32 +18,34 @@ const BookSearch = ({handleSubmit,search,reset, loading, page, englishOnly, togg
         <span>little open</span>
         <h1>Library</h1>
         <form onSubmit={(e) => handleSubmit(e, searchInput)}>
+          <div className="input-unit">
             <input type="text" id="search" value={searchInput} onChange={handleSearchChange}/>
-            <div className="input-unit">
-              <input type="button" 
-                    value="Search" 
-                    onClick={()=> search(page, searchInput)}
-                    disabled={loading || !searchInput}
-                    />
-            </div>
-            <div className="input-unit">
-                <label htmlFor="english" className={loading || !searchInput ? 'disabled':''}>Show English results only</label>
-                <input type="checkbox" 
-                id="english" 
-                checked={englishOnly}
-                value={englishOnly}
-                disabled={loading || !searchInput}
-                onChange={toggleEnglishOnly}
-                />
-              </div>
-            <div className="input-unit">
-              <label htmlFor="reset"></label>
-              <input type="button" 
-              value="Reset" 
-              onClick={clearAndReset}
-              disabled ={!searchInput}
+          </div>
+          <div className="input-unit">
+            <input type="button" 
+                  value="Search" 
+                  onClick={()=> search(page, searchInput)}
+                  disabled={loading || !searchInput}
+                  />
+          </div>
+          <div className="input-unit">
+              <label htmlFor="english" className={loading || !searchInput ? 'disabled':''}>Show English results only</label>
+              <input type="checkbox" 
+              id="english" 
+              checked={englishOnly}
+              value={englishOnly}
+              disabled={loading || !searchInput}
+              onChange={toggleEnglishOnly}
               />
             </div>
+          <div className="input-unit">
+            <label htmlFor="reset"></label>
+            <input type="button" 
+            value="Reset" 
+            onClick={clearAndReset}
+            disabled ={!searchInput}
+            />
+          </div>
         </form> 
       </div>
     </aside>

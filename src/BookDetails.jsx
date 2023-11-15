@@ -36,7 +36,7 @@ const BookDetails = () => {
   }
 
 return(
-  <div>
+  <div className="details-view">
       {loading ? <Loader /> : <article key={path}>
         <Image
           alt={`${data.title} by ${authors.map(name=> name)}`} 
