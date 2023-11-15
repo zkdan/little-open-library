@@ -1,17 +1,11 @@
-import bookImg from './assets/book_generated.png'
-import { useRef } from 'react'
-const Image = ({src, alt, url}) => {
-  const imgRef = useRef(null)
-  // if(imgRef){
-  //   console.log(imgRef.current)
-  // } 
+import './Image.css'
+const Image = ({src, alt}) => {
 return(
-  <>
+  <div className="img-container">
     <img 
-      ref={imgRef}
-      src={src || url || bookImg} 
+      src={src} 
       alt={alt}/>
-    </>
+  </div>
   )
 }
 export default Image;

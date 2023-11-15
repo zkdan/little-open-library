@@ -1,28 +1,28 @@
-import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { sanitizeNames, findProp } from "./utils";
-import bookImg from './assets/book_generated.png'
+import { useRouteLoaderData } from "react-router-dom";
 import Image from "./Image";
 import './BookDetails.css';
+import Loader from "./Loader";
+import bookImg from './assets/book_generated.png'
 
-const BookDetails = ({selectedBook, selectBook}) => {
-  
-  const [book, setBook] = useState([]);
+const BookDetails = () => {
+  const data = useRouteLoaderData('details');
+  const imgUrl = data ? data.imgUrl : bookImg;
+
   const [authors, setAuthors] = useState([])
-  const [bookData, setBookData] = useState({});
   const [loading, setLoading]=useState(false);
-  const [coverUrl, setCoverUrl] = useState(selectedBook.imgUrl)
-
-  const path = selectedBook.workKey || window.location.pathname;
+  
+  // if it's a URL reload, fetch the necesary data
+  const path = window.location.pathname;
   useEffect(()=>{
     setLoading(true);
     const url = new URL(`https://openlibrary.org/${path}.json`);
     fetch(url).then(res=>res.json()).then(res =>{
       getAuthorData(res.authors);
-      setBook(res);      
+      // setBook(res); 
       setLoading(false);
     })
-    
     
   },[path])
 
@@ -35,23 +35,20 @@ const BookDetails = ({selectedBook, selectBook}) => {
     Promise.all(names).then(res => setAuthors(sanitizeNames(res)));
   }
 
-
 return(
   <div>
-    <Link to="/">Back</Link>
-      <article key={book}>
+      {loading ? <Loader /> : <article key={path}>
         <Image
-          alt={`${book.title} by ${book.name}`} 
-          src={coverUrl} 
-          url={''}
+          alt={`${data.title} by ${authors.map(name=> name)}`} 
+          src={imgUrl} 
           />
-        <h2>{selectedBook.title || book.title}</h2>
+        <h2>{data.title}</h2>
         <div className="line-height-container">{authors.map(name => <p key={name}>{name}</p>)}
         </div>
-      </article>
+      </article> }
       <section>
-        <p>{findProp(book, 'description')}</p>
-          <ul className="subjects-list">{findProp(book, 'subjects').map((subject,i) => <li key={i}>{subject}</li>)}
+          <p>{findProp(data, 'description')}</p>
+          <ul className="subjects-list">{findProp(data, 'subjects').map((subject,i) => <li key={i}>{subject}</li>)}
           </ul>
       </section>
      

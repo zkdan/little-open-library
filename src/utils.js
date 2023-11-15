@@ -12,14 +12,6 @@ export const sanitizeNames =(nameArray)=>{
   return [...setOfNames]
 }
 
-const g = {
-            // description:"asdfasfd",
-            item:{
-              name:'3242423',
-              description:'jajsjdf'
-            }
-          };
-
 export const findProp= (obj, prop)=>{
   let item = Object.keys(obj).map(key =>{
 
@@ -33,7 +25,7 @@ export const findProp= (obj, prop)=>{
   }).flat().filter(item => item !== undefined);
 
   if(prop === 'description' && typeof item !== 'string' &&  item.length > 0){
-    item = item[0].value
+    item = item[0].value || item[0]
   }
   return item
 }

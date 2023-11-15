@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import './Book.css'
 const Book = ({data:book, selectBook}) => {
   const names = sanitizeNames(book.authorNames);
-
 return(
   <li>
      <Link to={`${book.workKey}`}>

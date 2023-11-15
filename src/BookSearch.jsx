@@ -36,16 +36,6 @@ const BookSearch = ({handleSubmit,search,reset, loading, page, englishOnly, togg
                 onChange={toggleEnglishOnly}
                 />
               </div>
-            {/* <div className="input-unit">
-              <label htmlFor="cover" className={loading || !searchInput? 'disabled':''}>Show books with covers only</label>
-              <input type="checkbox" 
-              id="cover" 
-              disabled={loading || !searchInput}
-              onChange={toggleCoverOnly}
-              value={coverOnly}
-              checked={coverOnly}
-              />
-            </div> */}
             <div className="input-unit">
               <label htmlFor="reset"></label>
               <input type="button" 

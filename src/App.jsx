@@ -5,9 +5,12 @@ import BookList from './BookList';
 import Loader from './Loader'
 import Pagination from './Pagination';
 import { Route, Routes } from 'react-router-dom';
+import ErrorBoundary from './ErrorBoundary';
+
 import { useState, useEffect, useCallback } from 'react';
 import bookImg from './assets/book_generated.png'
 function App() {
+  
   const [page, setPage] = useState(1);
   const [pageMax, setPageMax] = useState(null);
   const [englishOnly, setEnglishOnly] = useState(false);
@@ -16,6 +19,7 @@ function App() {
   const [lastSearch, setLastSearch] = useState('');
   const [loading, setLoading] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
+  const [queryUrl, useQueryUrl] = useState()
   const search = useCallback((index, query)=>{
     setLoading(true);
     if(!query){
@@ -113,10 +117,8 @@ function App() {
   return (
     <>
       <Routes>
-        <Route path="/works/:identifier" element={<BookDetails 
-        selectBook={selectBook}
-        selectedBook={selectedBook}/>}/>
-        <Route path="/" element={
+       
+        <Route path={`/`} element={
           <>
             <BookSearch
               loading={loading}
@@ -136,15 +138,20 @@ function App() {
                />
               }
               {loading ? <Loader /> : 
-              <>
+             
               <BookList books={showingBooks} 
                         selectBook={selectBook} 
                         />
-              </>
+              
               }
             </main>
           </>}/>
-          <Route path="*" element={<h2>404, baby</h2>}/>
+
+        <Route path="/works/:identifier"
+          errorElement={<ErrorBoundary name={'in app'}/>}
+          element={<BookDetails />}/>
+        
+        <Route path="*" element={<h2>404, baby</h2>}/>
       </Routes>
     </>
   )

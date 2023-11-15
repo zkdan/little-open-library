@@ -1,8 +1,15 @@
-# React + Vite
+# Little Open Library
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Free little libraries are those boxes outside peoples' houses that operate on a take-one-leave-one model. They always have weird books. This is that, but with the Open Library API. They've got a search API that allows you to search inside books but when a book says the inside is searchable, that's not always true.
 
-Currently, two official plugins are available:
+To do:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- strip out html tags from description
+- error handling for request
+- styling (color palette, mqs, icons for inside, other info)
+- change isbn id to the olid ?
+- add types
+- same number of items each page, not filtering  (filtering before reuqesting)
+- make sure bookdetails can reload without going back to search page
+cover edition is from the search request, detail;s request is going to OL normal ID, not nesc the one that has the cover
+- update react router to be a remix version https://remix.run/blog/remixing-react-router

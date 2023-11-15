@@ -13,11 +13,6 @@ html {
   font-size:62.5%;
 }
 
-body{
-  font-size: 2rem;
-  color:whitesmoke;
-}
-
 /* Remove default margin in favour of better control in authored CSS */
 body, h1, h2, h3, h4, p,
 figure, blockquote, dl, dd, ul, li {
@@ -35,6 +30,8 @@ body {
   min-height: 100vh;
   line-height: 1.5;
   font-family:'Sometype Mono', serif;
+  font-size: 2rem;
+  color:whitesmoke;
 }
 
 /* Set shorter line heights on headings and interactive elements */
