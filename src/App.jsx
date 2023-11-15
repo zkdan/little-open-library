@@ -5,9 +5,12 @@ import BookList from './BookList';
 import Loader from './Loader'
 import Pagination from './Pagination';
 import { Route, Routes } from 'react-router-dom';
+import ErrorBoundary from './ErrorBoundary';
+
 import { useState, useEffect, useCallback } from 'react';
 import bookImg from './assets/book_generated.png'
 function App() {
+  
   const [page, setPage] = useState(1);
   const [pageMax, setPageMax] = useState(null);
   const [englishOnly, setEnglishOnly] = useState(false);
@@ -16,9 +19,15 @@ function App() {
   const [lastSearch, setLastSearch] = useState('');
   const [loading, setLoading] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
+  const [queryUrl, useQueryUrl] = useState()
   const search = useCallback((index, query)=>{
-      setLoading(true);
-      setSearchTerm(query);
+    setLoading(true);
+    if(!query){
+      setLoading(false);
+
+      return 
+    }
+    setSearchTerm(query);
       const url = new URL(`https://openlibrary.org/search.json`);
   
       const params = {
@@ -28,28 +37,30 @@ function App() {
       if(englishOnly){
         params.language = 'eng'
       }
-     
+    
       url.search = new URLSearchParams(params);
       fetch(url).then(res=>res.json()).then(res =>{
         const totalPages = Math.ceil(res.numFound / 100);
         setPageMax(totalPages);
-        
-        const b =  res.docs.filter(book => book.author_key && book.isbn && book.cover_i )
+        const b =  res.docs.filter(book => book.author_key && book.isbn && book.cover_i)
         .map(book => {
           const imgUrl = book.cover_edition_key ? `https://covers.openlibrary.org/b/olid/${book.cover_edition_key}-M.jpg` : bookImg ;
-          console.log(book.title, book.cover_edition_key, book.cover_i)
               return {
                 title:book.title,
                 authorKey:book.author_key,
                 workKey:book.key,
                 authorNames:book.author_name,
                 isbn:book.isbn[0],
+                archiveId:book.ia || `none`,
                 // imgUrl:`https://covers.openlibrary.org/b/isbn/${book.isbn[0]}-M.jpg`
-                imgUrl: imgUrl
+                imgUrl: imgUrl,
+                pubYear:book.first_publish_year,
+                hasFullText: !!book.has_fulltext
                 
               }
             })
           .reduce((acc, curr) => {
+            // no duplicates by the same author
             if(acc[curr.authorKey[0]]){
               return acc
             } else {
@@ -57,7 +68,7 @@ function App() {
             }
               return acc
           },{})
-          console.log(b)
+          // console.log(b)
           setShowingBooks(Object.values(b));
           setLastSearch(query);
           setLoading(false);
@@ -106,10 +117,8 @@ function App() {
   return (
     <>
       <Routes>
-        <Route path="/book/:isbn" element={<BookDetails 
-        selectBook={selectBook}
-        selectedBook={selectedBook}/>}/>
-        <Route path="/" element={
+       
+        <Route path={`/`} element={
           <>
             <BookSearch
               loading={loading}
@@ -129,15 +138,20 @@ function App() {
                />
               }
               {loading ? <Loader /> : 
-              <>
+             
               <BookList books={showingBooks} 
                         selectBook={selectBook} 
                         />
-              </>
+              
               }
             </main>
           </>}/>
-          <Route path="*" element={<h2>404, baby</h2>}/>
+
+        <Route path="/works/:identifier"
+          errorElement={<ErrorBoundary name={'in app'}/>}
+          element={<BookDetails />}/>
+        
+        <Route path="*" element={<h2>404, baby</h2>}/>
       </Routes>
     </>
   )

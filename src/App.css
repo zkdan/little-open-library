@@ -10,11 +10,12 @@ html {
   -moz-text-size-adjust: none;
   -webkit-text-size-adjust: none;
   text-size-adjust: none;
+  font-size:62.5%;
 }
 
 /* Remove default margin in favour of better control in authored CSS */
 body, h1, h2, h3, h4, p,
-figure, blockquote, dl, dd {
+figure, blockquote, dl, dd, ul, li {
   margin: 0;
 }
 
@@ -28,6 +29,9 @@ ol[role='list'] {
 body {
   min-height: 100vh;
   line-height: 1.5;
+  font-family:'Sometype Mono', serif;
+  font-size: 2rem;
+  color:whitesmoke;
 }
 
 /* Set shorter line heights on headings and interactive elements */
@@ -78,15 +82,21 @@ textarea:not([rows]) {
   display: flex;
 }
 
+main{
+  flex-grow:1;
+}
 aside{
   background-color: palevioletred;
   min-height:100vh;
   flex-shrink:0;
+  padding:2rem;
 }
 
-.search-container{
-  position: sticky;
-  top:0;
+.input-unit{
+  margin: 1rem 0;
+  /* position: sticky;
+  top:0; */
+
 }
 
 ul{
